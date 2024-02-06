@@ -1,0 +1,48 @@
+
+<template>
+  <div class="pdf">
+    <form ref="myForm">
+      <!-- Your form fields go here -->
+      <label for="name">Name:</label>
+      <input type="text" id="name" v-model="formData.name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" v-model="formData.email" required>
+
+      <!-- Add more form fields as needed -->
+
+      <button type="button" @click="downloadPDF">Download PDF</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import jsPDF from 'jspdf';
+
+export default {
+  name: 'pdfAbc',
+  data() {
+    return {
+      formData: {
+        name: '',
+        email: '',
+        // Add more fields as needed
+      },
+    };
+  },
+  methods: {
+    downloadPDF() {
+      const pdf = new jsPDF();
+      const formData = this.formData;
+
+      // Customize the PDF content based on form data
+      pdf.text(`Name: ${formData.name}`, 10, 10);
+      pdf.text(`Email: ${formData.email}`, 10, 20);
+      // Add more lines for additional form fields
+
+      // Save the PDF
+      pdf.save('formData.pdf');
+    },
+  },
+};
+</script>
